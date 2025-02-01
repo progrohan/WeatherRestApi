@@ -3,6 +3,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+src/main/resources/aplication.properties
+
 ### IntelliJ IDEA ###
 .idea
 mvnw.cmd

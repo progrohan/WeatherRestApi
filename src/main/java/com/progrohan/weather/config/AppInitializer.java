@@ -1,7 +1,5 @@
-package progrohan.weather.config;
+package com.progrohan.weather.config;
 
-import jakarta.validation.constraints.NotNull;
-import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {

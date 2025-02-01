@@ -1,4 +1,4 @@
-package progrohan.weather.config;
+package com.progrohan.weather.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +20,7 @@ public class HibernateConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setPackagesToScan("progrohan.weather.model");
+        sessionFactory.setPackagesToScan("com.progrohan.weather.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
     }

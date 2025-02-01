@@ -1,4 +1,4 @@
-package progrohan.weather.config;
+package com.progrohan.weather.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

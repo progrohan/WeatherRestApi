@@ -1,4 +1,4 @@
-package progrohan.weather.config;
+package com.progrohan.weather.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.ComponentScan;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-@ComponentScan("progrohan.weather")
+@ComponentScan("com.progrohan.weather")
 @EnableTransactionManagement
 @EnableWebMvc
 @Import({DataSourceConfig.class, HibernateConfig.class})

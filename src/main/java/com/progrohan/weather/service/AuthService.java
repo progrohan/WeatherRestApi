@@ -58,6 +58,12 @@ public class AuthService {
         return sessionMapper.toDto(session);
     }
 
+    public void deleteSession(SessionDTO sessionDTO){
+
+        sessionRepository.delete(sessionDTO.getUuid());
+
+    }
+
     public UserResponseDTO login(UserLoginDTO userLoginDTO){
 
         Optional<User> userOptional = userRepository.findByName(userLoginDTO.getLogin());

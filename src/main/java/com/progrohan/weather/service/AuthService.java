@@ -91,7 +91,7 @@ public class AuthService {
 
             Optional<Session> sessionOptional = sessionRepository.findById(UUID.fromString(sessionId));
 
-            Session session = sessionOptional.orElseThrow(() -> new DataNotFoundException("Session not found!"));
+            Session session = sessionOptional.orElseThrow(() -> new SessionException("Session not found!"));
 
             return sessionMapper.toDto(session);
         }catch (Exception e){

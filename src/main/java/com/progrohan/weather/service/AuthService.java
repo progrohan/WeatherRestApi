@@ -7,6 +7,7 @@ import com.progrohan.weather.dto.UserResponseDTO;
 import com.progrohan.weather.exception.DataExistException;
 import com.progrohan.weather.exception.DataNotFoundException;
 import com.progrohan.weather.exception.InvalidDataException;
+import com.progrohan.weather.exception.SessionException;
 import com.progrohan.weather.mapper.SessionMapper;
 import com.progrohan.weather.mapper.UserMapper;
 import com.progrohan.weather.model.entity.Session;
@@ -77,22 +78,26 @@ public class AuthService {
     }
 
     public SessionDTO getSessionFromCookies(Cookie[] cookies){
-
-        String sessionId = "";
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("sessionId".equals(cookie.getName())) {
-                    sessionId = cookie.getValue();
-                    break;
+        try {
+            String sessionId = "";
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if ("sessionId".equals(cookie.getName())) {
+                        sessionId = cookie.getValue();
+                        break;
+                    }
                 }
-            }
-        } else throw new InvalidDataException("Cookie is empty");
+            } else throw new SessionException("Cookie is empty");
 
-        Optional<Session> sessionOptional = sessionRepository.findById(UUID.fromString(sessionId));
+            Optional<Session> sessionOptional = sessionRepository.findById(UUID.fromString(sessionId));
 
-        Session session = sessionOptional.orElseThrow(() -> new DataNotFoundException("Session not found!"));
+            Session session = sessionOptional.orElseThrow(() -> new DataNotFoundException("Session not found!"));
 
-        return sessionMapper.toDto(session);
+            return sessionMapper.toDto(session);
+        }catch (Exception e){
+            throw new SessionException("Problem with current session");
+        }
+
     }
 
 }

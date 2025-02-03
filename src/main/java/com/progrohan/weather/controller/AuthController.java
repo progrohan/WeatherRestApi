@@ -75,8 +75,11 @@ public class AuthController {
     }
 
     @GetMapping("/users/me")
-    public String getCurrentUser(){
-        return "user";
+    public ResponseEntity<UserResponseDTO> getCurrentUser(HttpServletRequest request){
+
+        SessionDTO session = authService.getSessionFromCookies(request.getCookies());
+
+        return ResponseEntity.status(HttpStatus.OK).body(session.getUser());
     }
 
 }

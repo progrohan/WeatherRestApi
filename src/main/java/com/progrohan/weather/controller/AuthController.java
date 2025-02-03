@@ -6,6 +6,7 @@ import com.progrohan.weather.dto.UserRegRequestDTO;
 import com.progrohan.weather.dto.UserResponseDTO;
 import com.progrohan.weather.service.AuthService;
 import com.progrohan.weather.util.DataValidator;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -15,9 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -58,8 +56,22 @@ public class AuthController {
     }
 
     @PostMapping("/logout")
-    public String logOut(){
-        return "Logged out successful";
+    public ResponseEntity<String> logOut(HttpServletRequest request){
+
+        SessionDTO session = authService.getSessionFromCookies(request.getCookies());
+
+        authService.deleteSession(session);
+
+        ResponseCookie cookie = ResponseCookie.from("sessionId", "")
+                .httpOnly(true)
+                .path("/")
+                .maxAge(0)
+                .build();
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body("Logged out successfully");
     }
 
     @GetMapping("/users/me")

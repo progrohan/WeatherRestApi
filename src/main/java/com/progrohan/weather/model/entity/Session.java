@@ -7,6 +7,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
@@ -27,7 +29,7 @@ public class Session {
     @JoinColumn(name = "user_id", nullable = false)
     private User userId;
 
-    @Column(nullable = false)
+    @Column(name = "expires_at", nullable = false)
     private LocalDateTime expiresAt;
 
 }

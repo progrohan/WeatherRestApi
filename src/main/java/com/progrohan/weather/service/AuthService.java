@@ -13,6 +13,7 @@ import com.progrohan.weather.model.entity.Session;
 import com.progrohan.weather.model.entity.User;
 import com.progrohan.weather.repository.SessionRepository;
 import com.progrohan.weather.repository.UserRepository;
+import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +68,25 @@ public class AuthService {
             throw new InvalidDataException("Password is incorrect!");
 
         return userMapper.toDto(user);
+    }
+
+    public SessionDTO getSessionFromCookies(Cookie[] cookies){
+
+        String sessionId = "";
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("sessionId".equals(cookie.getName())) {
+                    sessionId = cookie.getValue();
+                    break;
+                }
+            }
+        } else throw new InvalidDataException("Cookie is empty");
+
+        Optional<Session> sessionOptional = sessionRepository.findById(UUID.fromString(sessionId));
+
+        Session session = sessionOptional.orElseThrow(() -> new DataNotFoundException("Session not found!"));
+
+        return sessionMapper.toDto(session);
     }
 
 }

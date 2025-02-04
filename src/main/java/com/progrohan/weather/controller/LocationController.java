@@ -3,6 +3,8 @@ package com.progrohan.weather.controller;
 import com.progrohan.weather.dto.LocationDTO;
 import com.progrohan.weather.service.LocationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +22,11 @@ public class LocationController {
     private final LocationService locationService;
 
     @GetMapping("/search")
-    public List<LocationDTO> searchLocation(@RequestParam String name){
-        return locationService.findLocationsByName(name);
+    public ResponseEntity<List<LocationDTO>>  searchLocation(@RequestParam String name){
+        List<LocationDTO> locations = locationService.findLocationsByName(name);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(locations);
     }
 
     @PostMapping

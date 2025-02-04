@@ -1,7 +1,7 @@
 package com.progrohan.weather.util;
 
 import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegRequestDTO;
+import com.progrohan.weather.dto.UserRegistrationDTO;
 import com.progrohan.weather.exception.InvalidDataException;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +10,9 @@ import java.util.Objects;
 @Component
 public class DataValidator {
 
-    public void checkUserReg(UserRegRequestDTO userRegRequestDTO){
-        checkName(userRegRequestDTO.getLogin());
-        checkPasswords(userRegRequestDTO.getPassword(), userRegRequestDTO.getConfirmPassword());
+    public void checkUserReg(UserRegistrationDTO userRegistrationDTO){
+        checkName(userRegistrationDTO.getLogin());
+        checkPasswords(userRegistrationDTO.getPassword(), userRegistrationDTO.getConfirmPassword());
     }
 
     public void checkUserLogin(UserLoginDTO userLoginDTO){

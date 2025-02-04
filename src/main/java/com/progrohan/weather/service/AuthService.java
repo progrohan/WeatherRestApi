@@ -2,7 +2,7 @@ package com.progrohan.weather.service;
 
 import com.progrohan.weather.dto.SessionDTO;
 import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegRequestDTO;
+import com.progrohan.weather.dto.UserRegistrationDTO;
 import com.progrohan.weather.dto.UserResponseDTO;
 import com.progrohan.weather.exception.DataExistException;
 import com.progrohan.weather.exception.DataNotFoundException;
@@ -20,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,7 +33,7 @@ public class AuthService {
     private final UserMapper userMapper;
     private final PasswordEncoding passwordEncoding;
 
-    public UserResponseDTO createUser(UserRegRequestDTO userRequestDTO){
+    public UserResponseDTO createUser(UserRegistrationDTO userRequestDTO){
         try{
             User user = userMapper.toEntity(userRequestDTO, passwordEncoding);
 

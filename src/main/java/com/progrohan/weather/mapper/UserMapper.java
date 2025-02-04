@@ -1,7 +1,7 @@
 package com.progrohan.weather.mapper;
 
 import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegRequestDTO;
+import com.progrohan.weather.dto.UserRegistrationDTO;
 import com.progrohan.weather.dto.UserResponseDTO;
 import com.progrohan.weather.model.entity.User;
 import com.progrohan.weather.util.PasswordEncoding;
@@ -17,7 +17,7 @@ public interface UserMapper {
     User toEntity(UserLoginDTO dto);
 
     @Mapping(target = "password", expression = "java(passwordEncoding.encode(dto.getPassword()))")
-    User toEntity(UserRegRequestDTO dto, PasswordEncoding passwordEncoding);
+    User toEntity(UserRegistrationDTO dto, PasswordEncoding passwordEncoding);
 
     UserResponseDTO toDto(User entity);
 

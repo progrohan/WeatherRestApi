@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserRegRequestDTO {
+public class UserRegistrationDTO {
 
     private String login;
 

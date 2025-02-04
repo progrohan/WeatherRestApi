@@ -2,7 +2,7 @@ package com.progrohan.weather.controller;
 
 import com.progrohan.weather.dto.SessionDTO;
 import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegRequestDTO;
+import com.progrohan.weather.dto.UserRegistrationDTO;
 import com.progrohan.weather.dto.UserResponseDTO;
 import com.progrohan.weather.service.AuthService;
 import com.progrohan.weather.util.DataValidator;
@@ -25,7 +25,7 @@ public class AuthController {
     private final DataValidator dataValidator;
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserRegRequestDTO userRequestDTO){
+    public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userRequestDTO){
 
         dataValidator.checkUserReg(userRequestDTO);
 

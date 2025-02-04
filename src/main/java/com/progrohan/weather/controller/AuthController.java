@@ -25,13 +25,13 @@ public class AuthController {
     private final DataValidator dataValidator;
 
     @PostMapping("/register")
-    public ResponseEntity<UserResponseDTO> registerUser(@RequestBody UserRegRequestDTO userRequestDTO){
+    public ResponseEntity<String> registerUser(@RequestBody UserRegRequestDTO userRequestDTO){
 
         dataValidator.checkUserReg(userRequestDTO);
 
         UserResponseDTO userResponseDTO = authService.createUser(userRequestDTO);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Registration successful");
     }
 
     @PostMapping("/login")

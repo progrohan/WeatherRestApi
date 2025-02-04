@@ -40,7 +40,6 @@ public class LocationService {
 
             return locations;
         } catch (JsonProcessingException e) {
-            String s = "s";
             throw new ApiException("Problem with finding locations");
         }
     }

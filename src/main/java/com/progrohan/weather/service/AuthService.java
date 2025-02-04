@@ -14,6 +14,7 @@ import com.progrohan.weather.model.entity.Session;
 import com.progrohan.weather.model.entity.User;
 import com.progrohan.weather.repository.SessionRepository;
 import com.progrohan.weather.repository.UserRepository;
+import com.progrohan.weather.util.PasswordEncoding;
 import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,10 +32,11 @@ public class AuthService {
     private final SessionRepository sessionRepository;
     private final SessionMapper sessionMapper;
     private final UserMapper userMapper;
+    private final PasswordEncoding passwordEncoding;
 
     public UserResponseDTO createUser(UserRegRequestDTO userRequestDTO){
         try{
-            User user = userMapper.toEntity(userRequestDTO);
+            User user = userMapper.toEntity(userRequestDTO, passwordEncoding);
 
             user = userRepository.save(user);
 
@@ -71,7 +73,7 @@ public class AuthService {
 
         User user = userOptional.orElseThrow(() -> new DataNotFoundException("User not found!"));
 
-        if(!Objects.equals(user.getPassword(), userLoginDTO.getPassword()))
+        if(!passwordEncoding.checkPassword(userLoginDTO.getPassword(), user.getPassword()))
             throw new InvalidDataException("Password is incorrect!");
 
         return userMapper.toDto(user);

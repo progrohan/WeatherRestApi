@@ -3,6 +3,7 @@ package com.progrohan.weather.controller;
 import com.progrohan.weather.dto.LocationDTO;
 import com.progrohan.weather.dto.SessionDTO;
 import com.progrohan.weather.dto.UsersLocationDTO;
+import com.progrohan.weather.exception.AccessDeniedException;
 import com.progrohan.weather.mapper.LocationMapper;
 import com.progrohan.weather.service.AuthService;
 import com.progrohan.weather.service.LocationService;
@@ -70,9 +71,16 @@ public class LocationController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteLocation(@PathVariable Long id){
+    public ResponseEntity<String> deleteLocation(@PathVariable Long id,
+                                                 HttpServletRequest request){
 
-        locationService.delete(id);
+        SessionDTO session = authService.getSessionFromCookies(request.getCookies());
+
+        if (locationService.checkUsersPermission(session, id)){
+            locationService.delete(id);
+        }else{
+            throw new AccessDeniedException("This id does not belong to current user");
+        }
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)

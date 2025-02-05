@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LocationDTO {
 
+    private Long id;
+
     private String name;
 
     @JsonProperty("lat")

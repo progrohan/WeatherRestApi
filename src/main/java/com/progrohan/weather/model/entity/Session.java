@@ -23,7 +23,7 @@ import java.util.UUID;
 public class Session {
 
     @Id
-    private UUID id;
+    private String id;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

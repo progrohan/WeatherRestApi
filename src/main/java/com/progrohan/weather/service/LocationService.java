@@ -4,7 +4,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.progrohan.weather.dto.LocationDTO;
+import com.progrohan.weather.dto.UsersLocationDTO;
 import com.progrohan.weather.exception.ApiException;
+import com.progrohan.weather.exception.DataExistException;
+import com.progrohan.weather.mapper.LocationMapper;
+import com.progrohan.weather.model.entity.Location;
+import com.progrohan.weather.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -22,6 +27,8 @@ public class LocationService {
     private final Environment env;
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final LocationMapper locationMapper;
+    private final LocationRepository locationRepository;
 
 
     public List<LocationDTO> findLocationsByName(String name){
@@ -41,6 +48,17 @@ public class LocationService {
             return locations;
         } catch (JsonProcessingException e) {
             throw new ApiException("Problem with finding locations");
+        }
+    }
+
+    public LocationDTO saveLocation(UsersLocationDTO locationDTO){
+        try {
+            Location location = locationRepository.save(locationMapper.toEntity(locationDTO));
+
+            return locationMapper.toDTO(location);
+
+        }catch(DataExistException e){
+            throw new DataExistException("Location is already exists");
         }
     }
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public class SessionRepository extends BaseRepository<UUID, Session>{
+public class SessionRepository extends BaseRepository<String, Session>{
 
     @Autowired
     public SessionRepository(SessionFactory sessionFactory) {

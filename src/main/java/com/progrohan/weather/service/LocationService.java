@@ -4,11 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.progrohan.weather.dto.LocationDTO;
+import com.progrohan.weather.dto.SessionDTO;
 import com.progrohan.weather.dto.UsersLocationDTO;
 import com.progrohan.weather.exception.ApiException;
 import com.progrohan.weather.exception.DataExistException;
 import com.progrohan.weather.mapper.LocationMapper;
+import com.progrohan.weather.mapper.SessionMapper;
 import com.progrohan.weather.model.entity.Location;
+import com.progrohan.weather.model.entity.Session;
 import com.progrohan.weather.repository.LocationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
@@ -16,8 +19,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
-
-
 
 
 @Service
@@ -29,6 +30,7 @@ public class LocationService {
     private final ObjectMapper objectMapper;
     private final LocationMapper locationMapper;
     private final LocationRepository locationRepository;
+    private final SessionMapper sessionMapper;
 
 
     public List<LocationDTO> findLocationsByName(String name){
@@ -60,6 +62,22 @@ public class LocationService {
         }catch(DataExistException e){
             throw new DataExistException("Location is already exists");
         }
+    }
+
+    public List<LocationDTO> findByUserId(SessionDTO sessionDTO){
+
+        Session session = sessionMapper.toEntity(sessionDTO);
+
+        List<Location> locations = locationRepository
+                .findByUserID( session.getUserId());
+
+        List<LocationDTO> locationDTOS = locations
+                .stream()
+                .map(locationMapper::toDTO)
+                .toList();
+
+        return locationDTOS;
+
     }
 
 }

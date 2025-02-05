@@ -80,4 +80,10 @@ public class LocationService {
 
     }
 
+    public void delete(Long id){
+
+        locationRepository.delete(id);
+
+    }
+
 }

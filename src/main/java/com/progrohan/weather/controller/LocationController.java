@@ -56,8 +56,16 @@ public class LocationController {
     }
 
     @GetMapping
-    public String getUserLocations(){
-        return "users locations";
+    public ResponseEntity<List<LocationDTO>> getUserLocations(HttpServletRequest request){
+
+        SessionDTO session = authService.getSessionFromCookies(request.getCookies());
+
+        List<LocationDTO> locations = locationService.findByUserId(session);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(locations);
+
     }
 
     @DeleteMapping("/{id}")

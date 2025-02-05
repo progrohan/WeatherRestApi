@@ -62,7 +62,7 @@ public class AuthService {
 
     public void deleteSession(SessionDTO sessionDTO){
 
-        sessionRepository.delete(sessionDTO.getUuid());
+        sessionRepository.delete(sessionDTO.getUuid().toString());
 
     }
 
@@ -90,7 +90,7 @@ public class AuthService {
                 }
             } else throw new SessionException("Cookie is empty");
 
-            Optional<Session> sessionOptional = sessionRepository.findById(UUID.fromString(sessionId));
+            Optional<Session> sessionOptional = sessionRepository.findById(sessionId);
 
             Session session = sessionOptional.orElseThrow(() -> new SessionException("Session not found!"));
 

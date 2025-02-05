@@ -8,6 +8,7 @@ import com.progrohan.weather.dto.SessionDTO;
 import com.progrohan.weather.dto.UsersLocationDTO;
 import com.progrohan.weather.exception.ApiException;
 import com.progrohan.weather.exception.DataExistException;
+import com.progrohan.weather.exception.DataNotFoundException;
 import com.progrohan.weather.mapper.LocationMapper;
 import com.progrohan.weather.mapper.SessionMapper;
 import com.progrohan.weather.model.entity.Location;
@@ -19,6 +20,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 
 @Service
@@ -83,6 +86,26 @@ public class LocationService {
     public void delete(Long id){
 
         locationRepository.delete(id);
+
+    }
+
+    public boolean checkUsersPermission(SessionDTO session, Long id){
+
+        Optional<Location> locationOptional = locationRepository.findById(id);
+
+        if (locationOptional.isEmpty()){
+            throw new DataNotFoundException("Location with id "
+                                            + id + " not exists");
+        }else{
+            Location location = locationOptional.get();
+
+            Long locationOwnersId = location.getUserId().getId();
+
+            Long currentUserId = session.getUser().getId();
+
+            return Objects.equals(locationOwnersId, currentUserId);
+        }
+
 
     }
 

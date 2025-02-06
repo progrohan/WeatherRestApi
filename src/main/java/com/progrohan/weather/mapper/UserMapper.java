@@ -1,8 +1,8 @@
 package com.progrohan.weather.mapper;
 
-import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegistrationDTO;
-import com.progrohan.weather.dto.UserResponseDTO;
+import com.progrohan.weather.dto.user.UserLoginDTO;
+import com.progrohan.weather.dto.user.UserRegistrationDTO;
+import com.progrohan.weather.dto.user.UserResponseDTO;
 import com.progrohan.weather.model.entity.User;
 import com.progrohan.weather.util.PasswordEncoding;
 import org.mapstruct.Mapper;

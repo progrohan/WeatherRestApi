@@ -1,4 +1,4 @@
-package com.progrohan.weather.dto;
+package com.progrohan.weather.dto.user;
 
 
 import lombok.AllArgsConstructor;

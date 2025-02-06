@@ -1,9 +1,9 @@
 package com.progrohan.weather.service;
 
 import com.progrohan.weather.dto.SessionDTO;
-import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegistrationDTO;
-import com.progrohan.weather.dto.UserResponseDTO;
+import com.progrohan.weather.dto.user.UserLoginDTO;
+import com.progrohan.weather.dto.user.UserRegistrationDTO;
+import com.progrohan.weather.dto.user.UserResponseDTO;
 import com.progrohan.weather.exception.DataExistException;
 import com.progrohan.weather.exception.DataNotFoundException;
 import com.progrohan.weather.exception.InvalidDataException;

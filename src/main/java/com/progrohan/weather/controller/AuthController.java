@@ -1,9 +1,9 @@
 package com.progrohan.weather.controller;
 
 import com.progrohan.weather.dto.SessionDTO;
-import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegistrationDTO;
-import com.progrohan.weather.dto.UserResponseDTO;
+import com.progrohan.weather.dto.user.UserLoginDTO;
+import com.progrohan.weather.dto.user.UserRegistrationDTO;
+import com.progrohan.weather.dto.user.UserResponseDTO;
 import com.progrohan.weather.service.AuthService;
 import com.progrohan.weather.util.DataValidator;
 import jakarta.servlet.http.HttpServletRequest;

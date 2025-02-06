@@ -1,7 +1,7 @@
 package com.progrohan.weather.util;
 
-import com.progrohan.weather.dto.UserLoginDTO;
-import com.progrohan.weather.dto.UserRegistrationDTO;
+import com.progrohan.weather.dto.user.UserLoginDTO;
+import com.progrohan.weather.dto.user.UserRegistrationDTO;
 import com.progrohan.weather.exception.InvalidDataException;
 import org.springframework.stereotype.Component;
 

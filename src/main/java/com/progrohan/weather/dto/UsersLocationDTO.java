@@ -1,5 +1,6 @@
 package com.progrohan.weather.dto;
 
+import com.progrohan.weather.dto.user.UserResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

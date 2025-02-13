@@ -94,6 +94,8 @@ public class AuthService {
 
             Session session = sessionOptional.orElseThrow(() -> new SessionException("Session not found!"));
 
+            deleteSessionIfExpires(session);
+
             return sessionMapper.toDto(session);
         }catch (Exception e){
             throw new SessionException("Problem with current session");
@@ -101,4 +103,11 @@ public class AuthService {
 
     }
 
+    private void deleteSessionIfExpires(Session session){
+
+        if(session.getExpiresAt().isBefore(LocalDateTime.now())){
+            sessionRepository.delete(session.getId());
+            throw new SessionException("Session has been expired");
+        }
+    }
 }

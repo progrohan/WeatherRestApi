@@ -21,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -93,13 +94,16 @@ public class AuthServiceTest {
     public void testSessionExpiration() {
         UserRegistrationDTO userDTO = new UserRegistrationDTO("testUser", "password123", "password123");
         UserResponseDTO userResponse = authService.createUser(userDTO);
-        SessionDTO sessionDTO = authService.createSession(userResponse);
 
-        Session session = sessionRepository.findById(sessionDTO.getUuid().toString()).get();
-        session.setExpiresAt(LocalDateTime.now().minusMinutes(1));
+
+        Session session =   Session.builder()
+                .id(UUID.randomUUID().toString())
+                .userId(new User(userResponse.getId(), userResponse.getLogin(), null))
+                .expiresAt(LocalDateTime.now().minusMinutes(1))
+                .build();
         sessionRepository.save(session);
 
-        assertThrows(SessionException.class, () -> authService.getSessionFromCookies(new Cookie[]{new Cookie("sessionId", sessionDTO.getUuid().toString())}));
+        assertThrows(SessionException.class, () -> authService.getSessionFromCookies(new Cookie[]{new Cookie("sessionId", session.getId())}));
     }
 
 }

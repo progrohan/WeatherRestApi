@@ -51,7 +51,7 @@ public class LocationService {
             if (locations.isEmpty()) throw new ApiException("Nothing is found");
 
             return locations;
-        } catch (JsonProcessingException e) {
+        } catch (Exception e) {
             throw new ApiException("Problem with finding locations");
         }
     }

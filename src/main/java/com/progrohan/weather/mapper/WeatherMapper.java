@@ -1,7 +1,7 @@
 package com.progrohan.weather.mapper;
 
 import com.progrohan.weather.dto.weather.WeatherDTO;
-import com.progrohan.weather.dto.weather.WeatherResponceDTO;
+import com.progrohan.weather.dto.weather.WeatherResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -20,7 +20,7 @@ public interface WeatherMapper {
             @Mapping(source = "wind.speed", target = "windSpeed"),
             @Mapping(source = "clouds.cloudiness", target = "cloudiness")
     })
-    WeatherResponceDTO toDTO(WeatherDTO dto);
+    WeatherResponseDTO toDTO(WeatherDTO dto);
 
     @Named("mapWeather")
     default String mapWeather(List<WeatherDTO.Weather> weatherList) {

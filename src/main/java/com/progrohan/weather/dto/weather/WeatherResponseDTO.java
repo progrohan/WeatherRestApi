@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class WeatherResponceDTO {
+public class WeatherResponseDTO {
 
     private double temperature;
 

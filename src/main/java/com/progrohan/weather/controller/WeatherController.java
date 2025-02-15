@@ -1,7 +1,7 @@
 package com.progrohan.weather.controller;
 
 import com.progrohan.weather.dto.LocationDTO;
-import com.progrohan.weather.dto.weather.WeatherResponceDTO;
+import com.progrohan.weather.dto.weather.WeatherResponseDTO;
 import com.progrohan.weather.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/weather")
@@ -19,9 +21,9 @@ public class WeatherController {
     private final WeatherService weatherService;
 
     @GetMapping
-    public ResponseEntity<WeatherResponceDTO> getWeather(@RequestBody LocationDTO locationDTO){
+    public ResponseEntity<List<WeatherResponseDTO>> getWeather(@RequestBody List<LocationDTO> locationDTO){
 
-        WeatherResponceDTO weather = weatherService.getByLocation(locationDTO);
+        List<WeatherResponseDTO> weather = weatherService.getByLocation(locationDTO);
 
         return ResponseEntity
                 .status(HttpStatus.OK)

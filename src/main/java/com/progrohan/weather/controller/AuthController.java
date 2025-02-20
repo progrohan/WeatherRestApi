@@ -6,9 +6,6 @@ import com.progrohan.weather.dto.user.UserRegistrationDTO;
 import com.progrohan.weather.dto.user.UserResponseDTO;
 import com.progrohan.weather.service.AuthService;
 import com.progrohan.weather.util.DataValidator;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -22,15 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@Tag(name = "Auth", description = "Methods for auth")
 public class AuthController {
 
     private final AuthService authService;
     private final DataValidator dataValidator;
 
     @PostMapping("/register")
-    @Operation(summary = "Registrates user")
-    @ApiResponse(responseCode = "200", description = "Successful operation")
     public ResponseEntity<String> registerUser(@RequestBody UserRegistrationDTO userRequestDTO){
 
         dataValidator.checkUserReg(userRequestDTO);
